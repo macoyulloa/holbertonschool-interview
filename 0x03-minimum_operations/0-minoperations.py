@@ -9,9 +9,7 @@ def minOperations(n):
     descompose = []
     for i in range(2, n + 1):
         if n % i == 0:
-            while n % i == 0:
+            while n % i == 0 and n != 1:
                 n = n / i
                 descompose.append(i)
-        else:
-            pass
     return sum(descompose)
