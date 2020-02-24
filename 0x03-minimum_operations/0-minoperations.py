@@ -34,6 +34,8 @@ def minOperations(n):
     """minimum of operation"""
     if n <= 0:
         return 0
+    if type(n) is not int:
+        return 0
     if isPrime(n):
         return n
     list_primes = primeDescompose(n)
