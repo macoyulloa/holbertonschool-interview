@@ -32,16 +32,10 @@ static int check_sandpiles(int grid[3][3])
 	int i, j;
 
 	for (i = 0; i < 3; i++)
-	{
 		for (j = 0; j < 3; j++)
-		{
 			if (grid[i][j] > 3)
-				printf("not is a sandpile");
-				return 0;
-		}
-	}
-	printf("is a sandpile");
-	return 1;
+				return 1;
+	return 0;
 }
 
 void converting_into_sandpiles(int grid1[3][3], int grid_count[3][3])
@@ -67,10 +61,9 @@ void converting_into_sandpiles(int grid1[3][3], int grid_count[3][3])
 }
 
 /**
- *
  * sandpiles_sum - computes the sum of two sandpiles
- * @grid: sandpiles stable
- * @grid: sandpiles stable
+ * @grid1: sandpiles stable
+ * @grid2: sandpiles stable
  * Return: void function
  */
 void sandpiles_sum(int grid1[3][3], int grid2[3][3])
@@ -86,7 +79,7 @@ void sandpiles_sum(int grid1[3][3], int grid2[3][3])
 			grid_count[i][j] = 0;
 
 	checker = check_sandpiles(grid1);
-	if (checker == 0)
+	if (checker == 1)
 	{
 		print_grid(grid_count);
 		converting_into_sandpiles(grid1, grid_count);
