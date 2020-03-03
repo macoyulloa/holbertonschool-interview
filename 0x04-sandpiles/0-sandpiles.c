@@ -49,8 +49,8 @@ static int check_sandpiles(int grid[3][3])
 	for (i = 0; i < 3; i++)
 		for (j = 0; j < 3; j++)
 			if (grid[i][j] > 3)
-				return 0;
-	return 1;
+				return (0);
+	return (1);
 }
 
 /**
@@ -75,13 +75,13 @@ static void converting_into_sandpiles(int grid1[3][3])
 			{
 				grid1[i][j] = grid1[i][j] - 4;
 				if ((i - 1 >= 0) && (i - 1 < 3))
-					grid_count[i-1][j] += 1;
+					grid_count[i - 1][j] += 1;
 				if ((j - 1 >= 0) && (j - 1 < 3))
-					grid_count[i][j-1] += 1;
+					grid_count[i][j - 1] += 1;
 				if ((i + 1 >= 0) && (i + 1 < 3))
-					grid_count[i+1][j] += 1;
+					grid_count[i + 1][j] += 1;
 				if ((j + 1 >= 0) && (j + 1 < 3))
-					grid_count[i][j+1] += 1;
+					grid_count[i][j + 1] += 1;
 			}
 			else
 				grid1[i][j] = grid1[i][j];
@@ -103,6 +103,5 @@ void sandpiles_sum(int grid1[3][3], int grid2[3][3])
 	do {
 		print_grid(grid1);
 		converting_into_sandpiles(grid1);
-	}
-      	while (!check_sandpiles(grid1));
+	} while (!check_sandpiles(grid1));
 }
