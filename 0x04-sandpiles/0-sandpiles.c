@@ -83,8 +83,6 @@ static void converting_into_sandpiles(int grid1[3][3])
 				if ((j + 1 >= 0) && (j + 1 < 3))
 					grid_count[i][j + 1] += 1;
 			}
-			else
-				grid1[i][j] = grid1[i][j];
 		}
 	}
 	sum_two_grid(grid1, grid_count);
@@ -100,8 +98,9 @@ void sandpiles_sum(int grid1[3][3], int grid2[3][3])
 {
 	sum_two_grid(grid1, grid2);
 
-	do {
+	while (!check_sandpiles(grid1))
+	{
 		print_grid(grid1);
 		converting_into_sandpiles(grid1);
-	} while (!check_sandpiles(grid1));
+	};
 }
