@@ -16,11 +16,11 @@ void reverse(listint_t **head)
 	*head = prev;
 }
 
-int compareLists(listint_t **head, listint_t **copy)
+int compareLists(listint_t **head, listint_t *copy)
 {
 	listint_t *temp1, *temp2;
 	temp1 = *head;
-	temp2 = *copy;
+	temp2 = copy;
 
 	while (temp1 && temp2) {
 	        if (temp1->n == temp2->n) {
@@ -42,10 +42,9 @@ int compareLists(listint_t **head, listint_t **copy)
  */
 int is_palindrome(listint_t **head)
 {
-	listint_t *copy;
+	listint_t *copy = *head;
 	int num;
 	num = 0;
-	copy = *head;
 
 	if ((*head) == NULL)
 		return (0);
@@ -54,9 +53,9 @@ int is_palindrome(listint_t **head)
 
 	reverse(head);
 	print_listint(*head);
-	num = compareLists(*head, copy);
+	num = compareLists(head, copy);
 	if (num == 0)
-		return (0);
-	else
 		return (1);
+	else
+		return (0);
 }
