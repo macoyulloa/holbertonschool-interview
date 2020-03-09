@@ -66,7 +66,7 @@ int compareLists(listint_t **head, listint_t *middle)
 int is_palindrome(listint_t **head)
 {
 	if ((*head) == NULL)
-		return (0);
+		return (1);
 
 	listint_t *middle = middleList(head);
 
