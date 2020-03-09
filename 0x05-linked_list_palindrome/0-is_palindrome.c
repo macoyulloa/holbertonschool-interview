@@ -1,13 +1,18 @@
 #include "lists.h"
 #include <stdio.h>
 
+/**
+ * reverse - reverse a list
+ * @head: pointer to the header list
+ */
 void reverse(listint_t **head)
 {
-	listint_t *prev, *current, *next;
-	prev = NULL;
-	current = *head;
-	next = NULL;
-	while(current != NULL){
+	listint_t *current = *head;
+	listint_t *prev = NULL;
+	listint_t *next = NULL;
+
+	while (current != NULL)
+	{
 		next = current->next;
 		current->next = prev;
 		prev = current;
@@ -16,23 +21,40 @@ void reverse(listint_t **head)
 	*head = prev;
 }
 
-int compareLists(listint_t **head, listint_t *copy)
+/**
+ * middleList - move the pointer to the middle
+ * @head: pointer to the header
+ * Return: structure pointer since the middle
+ */
+listint_t *middleList(listint_t **head)
 {
-	listint_t *temp1, *temp2;
-	temp1 = *head;
-	temp2 = copy;
+	listint_t *slow = *head;
+	listint_t *fast = *head;
 
-	while (temp1 && temp2) {
-	        if (temp1->n == temp2->n) {
-			temp1 = temp1->next;
-			temp2 = temp2->next;
-		}
-	        else
-			return 0;
+	while (fast && fast->next)
+	{
+		slow = slow->next;
+		fast = fast->next->next;
 	}
-	if (temp1 == NULL && temp2 == NULL)
-		return 1;
-	return 0;
+	return (slow);
+}
+
+/**
+ * compareLists - compare if is a palindrome list
+ * @head: pointer to the fist num
+ * @middle: pointer to the middle of the list
+ * Return: 0 if not or 1 if it is
+ */
+int compareLists(listint_t **head, listint_t *middle)
+{
+	while (middle != NULL)
+	{
+		if (middle->n != (*head)->n)
+			return (0);
+		*head = (*head)->next;
+		middle = middle->next;
+	}
+	return (1);
 }
 
 /**
@@ -42,20 +64,13 @@ int compareLists(listint_t **head, listint_t *copy)
  */
 int is_palindrome(listint_t **head)
 {
-	listint_t *copy = *head;
-	int num;
-	num = 0;
-
 	if ((*head) == NULL)
 		return (0);
-	if ((*head)->next == NULL)
-		return (1);
 
-	reverse(head);
-	print_listint(*head);
-	num = compareLists(head, copy);
-	if (num == 0)
+	listint_t *middle = middleList(head);
+
+	reverse(&middle);
+	if ((compareLists(head, middle)) == 1)
 		return (1);
-	else
-		return (0);
+	return (0);
 }
