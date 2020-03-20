@@ -11,14 +11,13 @@ count = 0
 try:
     for std_line in sys.stdin:
         line_sep = std_line.split(" ")
-        if len(line_sep) > 2:
-            size = line_sep[-1]
-            status = line_sep[-2]
-            if status in status_list:
-                j = status_list.index(status)
-                counter_status[j] += 1
-            total_size += int(size)
-            count += 1
+        size = line_sep[-1]
+        status = line_sep[-2]
+        if status in status_list:
+            j = status_list.index(status)
+            counter_status[j] += 1
+        total_size += int(size)
+        count += 1
         if count == 10:
             print("File size: {:d}".format(total_size))
             for i in range(8):
