@@ -28,3 +28,9 @@ try:
             count = 0
 except Exception:
     pass
+finally:
+    print("File size: {:d}".format(total_size))
+    for i in range(8):
+        if counter_status[i] != 0:
+            print("{:}: {:d}".format(status_list[i],
+                                     counter_status[i]))
