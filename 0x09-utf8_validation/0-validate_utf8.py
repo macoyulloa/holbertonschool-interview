@@ -10,6 +10,6 @@ def validUTF8(data):
     Return: True if is a valid UTF-8 encoding or False
     """
     for i in range(len(data)):
-        if (data[i] >= 128 or data[i] < 0):
+        if (data[i] >= 256 or data[i] < 0):
             return False
     return True
