@@ -11,22 +11,23 @@ def validUTF8(data):
     Return: True if is a valid UTF-8 encoding or False
     """
     validation = False
-    n_bytes_utf = 0
+    continue_flag = 0
 
-    for byte in data:
-        byte = format(byte, '#010b')[-8:]
-        if n_bytes_utf == 0:
+    for element in data:
+
+        byte = format(element, '#010b')[-8:]
+        if continue_flag == 0:
             if byte[0] == '1':
-                n_bytes_utf = len(byte.split('0')[0])
-            if n_bytes_utf > 4 or n_bytes_utf == 1:
+                continue_flag = len(byte.split('0')[0])
+            if continue_flag > 4 or continue_flag == 1:
                 return False
-            if n_bytes_utf == 0:
+            if continue_flag == 0:
                 continue
         else:
             if not byte.startswith('10'):
                 return False
-            n_bytes_utf = n_bytes_utf - 1
+            continue_flag = continue_flag - 1
 
-    if n_bytes_utf == 0:
+    if continue_flag == 0:
         return True
     return validation
