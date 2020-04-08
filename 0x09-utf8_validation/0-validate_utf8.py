@@ -10,6 +10,7 @@ def validUTF8(data):
     UTF could be until 4 bytes, managing them as UTF encode
     Return: True if is a valid UTF-8 encoding or False
     """
+    validation = False
     n_bytes_utf = 0
 
     for byte in data:
@@ -29,4 +30,4 @@ def validUTF8(data):
 
     if n_bytes_utf == 0:
         return True
-    return False
+    return validation
