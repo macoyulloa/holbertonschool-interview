@@ -2,16 +2,6 @@
 #include <stdio.h>
 #include "slide_line.h"
 
-void print_array(int const *array, size_t size)
-{
-	size_t i;
-
-	printf("Line: ");
-	for (i = 0; i < size; i++)
-		printf("%s%d", i > 0 ? ", " : "", array[i]);
-	printf("\n");
-}
-
 void swap(int* xp, int* yp)
 {
 	int temp = *xp;
@@ -22,7 +12,6 @@ void swap(int* xp, int* yp)
 void sort(int *line, size_t size)
 {
 	size_t i, j, min_idx;
-	print_array(line, size);
 
 	for (i = 0; i < (size - 1); ++i)
 	{
@@ -33,7 +22,6 @@ void sort(int *line, size_t size)
 
 		swap(&line[min_idx], &line[i]);
 	}
-	print_array(line, size);
 }
 
 /**
@@ -47,10 +35,11 @@ int slide_line(int *line, size_t size, int direction)
 {
 	size_t i, j;
 
-	i = 0;
-	j = 0;
+	if (direction != 0)
+		if (direction != 1)
+			return (0);
 
-	while (i < size)
+	for (i=0, j=0; i < size;)
 	{
 		if (line[i] == 0)
 		{
@@ -91,10 +80,5 @@ int slide_line(int *line, size_t size, int direction)
 			}
 		}
 	}
-
-	if (direction == 1)
-		for (i=0; i<size;i++)
-			line[i] = line[i];
-
 	return (1);
 }
