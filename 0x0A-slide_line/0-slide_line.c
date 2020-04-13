@@ -3,65 +3,42 @@
 #include "slide_line.h"
 
 /**
- * print_array - Prints out an array of integer, followed by a new line
- * @array: Pointer to the array of integer to be printed
- * @size: Number of elements in @array
- */
-static void print_array(int const *array, size_t size)
-{
-	size_t i;
-
-	printf("Line: ");
-	for (i = 0; i < size; i++)
-		printf("%s%d", i > 0 ? ", " : "", array[i]);
-	printf("\n");
-}
-
-/**
  * right - if the case if move to the direction right
  * @line: pointer to a first number
  * @size: size of the array
  */
 void right(int *line, size_t size)
 {
-	int a[size];
-	size_t i, j, p;
+	size_t i, j;
 
-	for (i = size, j = size; i > 0;)
+	for (i = size; i > 0; i--)
 	{
-		if (line[i] == 0)
-			while (line[i] == 0)
-				i--;
-		if (i == 1)
-			break;
-		j = i - 1;
-		if (line[j] == 0)
-			while (line[j] == 0)
-				j--;
-
-		if (line[i] == line[j])
+		for (j = i - 1; j > 0; j--)
 		{
-			line[j] = line[i] + line[j];
-			line[i] = 0;
-			i = j - 1;
+			if (line[i - 1] != 0)
+			{
+				if (line[i - 1] == line[j - 1])
+				{
+					line[i - 1] = line[i - 1] + line[j - 1];
+					line[j - 1] = 0;
+					break;
+				}
+				if (line[i - 1] != line[j - 1] &&
+				    line[j - 1] != 0)
+					break;
+			}
+			if (line[i - 1] == 0)
+			{
+				if (line[j - 1] != 0)
+				{
+					line[i - 1] = line[j - 1];
+					line[j - 1] = 0;
+					i++;
+					break;
+				}
+			}
 		}
-		else
-			i--;
 	}
-
-	print_array(line, size);
-	for (i = 0; i < size; ++i)
-		if (line[i] == 0)
-			a[p++] = 0;
-
-	for (i = 0; i < size; ++i)
-		if (line[i] != 0)
-			a[p++] = line[i];
-
-	for (i = 0; i < size; i++)
-		line[i] = a[i];
-
-	print_array(line, size);
 }
 
 /**
