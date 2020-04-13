@@ -3,35 +3,65 @@
 #include "slide_line.h"
 
 /**
- * swap - swaps the position of two number in an array
- * @min_n: minimun number
- * @n: bigger number
+ * print_array - Prints out an array of integer, followed by a new line
+ * @array: Pointer to the array of integer to be printed
+ * @size: Number of elements in @array
  */
-void swap(int *min_n, int *n)
+static void print_array(int const *array, size_t size)
 {
-	int temp = *min_n;
-	*min_n = *n;
-	*n = temp;
+	size_t i;
+
+	printf("Line: ");
+	for (i = 0; i < size; i++)
+		printf("%s%d", i > 0 ? ", " : "", array[i]);
+	printf("\n");
 }
 
 /**
- * sort - sorting an array of ints
+ * right - if the case if move to the direction right
  * @line: pointer to a first number
  * @size: size of the array
  */
-void sort(int *line, size_t size)
+void right(int *line, size_t size)
 {
-	size_t i, j, min_idx;
+	int a[size];
+	size_t i, j, p;
 
-	for (i = 0; i < (size - 1); ++i)
+	for (i = size, j = size; i > 0;)
 	{
-		min_idx = i;
-		for (j = i + 1; j < size; j++)
-			if (line[j] < line[min_idx])
-				min_idx = j;
+		if (line[i] == 0)
+			while (line[i] == 0)
+				i--;
+		if (i == 1)
+			break;
+		j = i - 1;
+		if (line[j] == 0)
+			while (line[j] == 0)
+				j--;
 
-		swap(&line[min_idx], &line[i]);
+		if (line[i] == line[j])
+		{
+			line[j] = line[i] + line[j];
+			line[i] = 0;
+			i = j - 1;
+		}
+		else
+			i--;
 	}
+
+	print_array(line, size);
+	for (i = 0; i < size; ++i)
+		if (line[i] == 0)
+			a[p++] = 0;
+
+	for (i = 0; i < size; ++i)
+		if (line[i] != 0)
+			a[p++] = line[i];
+
+	for (i = 0; i < size; i++)
+		line[i] = a[i];
+
+	print_array(line, size);
 }
 
 /**
@@ -41,21 +71,37 @@ void sort(int *line, size_t size)
  */
 void left(int *line, size_t size)
 {
-	size_t i, j;
+	size_t i, j, p;
 
-	if (line[0] == 0)
+	for (i = 0, j = 0; i < size;)
 	{
-		for (i = 0, j = 0; i < size;)
-		{
-			if (line[i] != 0)
-			{
-				line[j] = line[i];
-				line[i] = 0;
+		if (line[i] == 0)
+			while (line[i] == 0)
+				i++;
+		if (i == (size - 1))
+			break;
+
+		j = i + 1;
+		if (line[j] == 0)
+			while (line[j] == 0)
 				j++;
-			}
-			i++;
+
+		if (line[i] == line[j])
+		{
+			line[i] = line[i] + line[j];
+			line[j] = 0;
+			i = j + 1;
 		}
+		else
+			i++;
+		j = 0;
 	}
+
+	for (i = 0, p = 0; i < size; i++)
+		if (line[i] != 0)
+			line[p++] = line[i];
+	while (p < size)
+		line[p++] = 0;
 }
 
 /**
@@ -67,40 +113,12 @@ void left(int *line, size_t size)
  */
 int slide_line(int *line, size_t size, int direction)
 {
-	size_t i, j;
-
 	if (direction != SLIDE_LEFT && direction != SLIDE_RIGHT)
 		return (0);
 
-	for (i = 0, j = 0; i < size;)
-	{
-		if (line[i] == 0)
-		{
-			while (line[i] == 0)
-				i++;
-		}
-		if (i == (size - 1))
-			break;
-		j = i + 1;
-		if (line[j] == 0)
-		{
-			while (line[j] == 0)
-				j++;
-		}
-		if (line[i] == line[j])
-		{
-			line[i] = line[i] + line[j];
-			line[j] = 0;
-			i = j + 1;
-		}
-		else
-			i++;
-		j = 0;
-	}
-	sort(line, size);
-
 	if (direction == 0)
 		left(line, size);
-
+	if (direction == 1)
+		right(line, size);
 	return (1);
 }
