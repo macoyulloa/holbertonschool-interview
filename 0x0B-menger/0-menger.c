@@ -22,7 +22,7 @@ void menger(int level)
 			simbol = '#';
 			ii = i;
 			jj = j;
-			while (ii > 0 || jj > 0)
+			while (ii > 0)
 			{
 				if (ii % 3 == 1 && jj % 3 == 1)
 					simbol = ' ';
