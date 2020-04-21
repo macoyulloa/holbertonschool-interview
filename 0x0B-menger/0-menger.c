@@ -17,11 +17,11 @@ void menger(int level)
 
 	for (i = 0; i < result; i++)
 	{
-		for (j = 0; j < result;)
+		for (j = 0; j < result; j++)
 		{
 			simbol = '#';
 			ii = i;
-			jj = j++;
+			jj = j;
 			while (ii > 0 || jj > 0)
 			{
 				if (ii % 3 == 1 && jj % 3 == 1)
