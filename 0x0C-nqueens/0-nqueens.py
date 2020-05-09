@@ -76,7 +76,7 @@ def solveNQUtil(board, col, n):
             board[i][col] = 1
             # make result true for any posibility
             # recursion to get all the posibilities, place all queens
-            counter = solveNQUtil(board, col + 1, n) or res
+            counter = solveNQUtil(board, col + 1, n) or counter
             # If it is not a save position, put 0
             board[i][col] = 0
     return counter
