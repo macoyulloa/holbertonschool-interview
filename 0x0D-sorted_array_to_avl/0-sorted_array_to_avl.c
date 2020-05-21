@@ -65,10 +65,10 @@ avl_t *insert_node_avl(int *array, size_t start, size_t end,
  */
 avl_t *sorted_array_to_avl(int *array, size_t size)
 {
+	avl_t *root;
+
 	if (!array || !size)
 		return (NULL);
-
-	avl_t *root;
 
 	root = insert_node_avl(array, 0, size - 1, NULL);
 	return (root);
