@@ -1,6 +1,39 @@
 #include "binary_trees.h"
 
-avl_t *SortedArrayToAVL(int *array, size_t start, size_t end,
+/**
+ * binary_tree_node - builds an AVL tree from an array
+ *
+ * @parent: The array to be printed
+ * @n: Size of the array
+ * Return: binary tree on success, NULL on failure
+ */
+avl_t *binary_tree_node(avl_t *parent, size_t n)
+{
+	avl_t *new_node;
+
+	new_node = malloc(sizeof(avl_t));
+	if (!new_node)
+		return (NULL);
+
+	new_node->n = n;
+	new_node->left = NULL;
+	new_node->right = NULL;
+	new_node->parent = parent;
+
+	return (new_node);
+}
+
+/**
+ * insert_node_AVL - builds an AVL tree from an array
+ *
+ * @array: The array to be printed
+ * @parent: the parent of the new node
+ * @start: the first element array index to eval
+ * @end: the last elemnt array index to eval
+ *
+ * Return: binary tree on success, NULL on failure
+ */
+avl_t *insert_node_avl(int *array, size_t start, size_t end,
 			avl_t *parent)
 {
 	size_t mid;
@@ -10,37 +43,33 @@ avl_t *SortedArrayToAVL(int *array, size_t start, size_t end,
 		return (NULL);
 
 	mid = (start + end) / 2;
-	root = malloc(sizeof(avl_t));
+	root = binary_tree_node(parent, array[mid]);
 	if (!root)
 		return (NULL);
 
-	root->parent = parent;
-	root->n = array[mid];
-	root->left = NULL;
-	root->right = NULL;
+	if (mid != start)
+		root->left = insert_node_avl(array, start, mid - 1, root);
 
-	// Recursively construct the left subtree and make it left child of root
-	root->left = SortedArrayToAVL(array, start, mid - 1, root->left);
-
-	// Recursively construct the right subtree and make it right child root
-	root->right = SortedArrayToAVL(array, mid + 1, end, root->right);
+	if (mid != end)
+		root->right = insert_node_avl(array, mid + 1, end, root);
 
 	return (root);
 }
 
 /**
- * binary_tree_s avl_t - builds an AVL tree from an array
+ * sorted_array_to_avl - builds an AVL tree from an array
  *
  * @array: The array to be printed
  * @size: Size of the array
+ * Return: AVL binary tree or NULL on failure
  */
 avl_t *sorted_array_to_avl(int *array, size_t size)
 {
-	if (!array)
+	if (!array || !size)
 		return (NULL);
 
 	avl_t *root;
-	root = NULL;
-	root = SortedArrayToAVL(array, 0, size - 1, NULL);
+
+	root = insert_node_avl(array, 0, size - 1, NULL);
 	return (root);
 }
