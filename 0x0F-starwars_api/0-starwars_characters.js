@@ -2,10 +2,12 @@
 
 const request = require('request');
 
-try {
-  const movieId = process.argv[2];
-  const url = `https://swapi.dev/api/films/${movieId}/`;
-  request(url, async function (error, response, body) {
+const movieId = process.argv[2];
+const url = `https://swapi.dev/api/films/${movieId}/`;
+request(url, async function (error, response, body) {
+  if (error) {
+    console.log(error);
+  } else {
     const characters = JSON.parse(body).characters;
     for (const character of characters) {
       const res = await new Promise((resolve, reject) => {
@@ -19,7 +21,5 @@ try {
       });
       console.log(res);
     }
-  });
-} catch (catchErr) {
-  console.log(catchErr);
-}
+  }
+});
