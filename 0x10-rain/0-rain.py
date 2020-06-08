@@ -35,6 +35,8 @@ def rain(walls):
     """
     if walls is None:
         return 0
+    if len(walls) == 2 or len(walls) == 1:
+        return 0
 
     # prev, pos_prev = save_position(walls, walls[0], 0)
     final_water_retain = 0
