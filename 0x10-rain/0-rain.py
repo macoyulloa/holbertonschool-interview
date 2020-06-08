@@ -3,28 +3,29 @@
 """
 
 
-def save_position(walls, num, i):
-    """ find the max num next to the num, prev position in the array
-
-    Arg:
-        - walls: array, list to find the next max number
-        - num: initial number in the array to compare
-        - i: is the position of num in the array
-
-    Return:
-        - max: is the next maximum number in the array compare with num
-        - j: indice: walls[j], position in the array of the max
+def maxWater(arr, n):
     """
-    max = walls[i+1]
-    # Traverse array elements from second
-    # and compare every element with curr max
-    for j in range(i+1, len(walls)):
-        if walls[j] >= num:
-            max = walls[j]
-            break
-        if j+1 == len(walls):
-            return (None, None)
-    return (max, j)
+    """
+    # To store the maximum water
+    # that can be stored
+    max_water = 0
+
+    # For every element of the array
+    for i in range(1, n - 1):
+        # Find the maximum element on its left
+        left = arr[i]
+        for j in range(i):
+            left = max(left, arr[j])
+
+        # Find the maximum element on its right
+        right = arr[i]
+        for j in range(i + 1, n):
+            right = max(right, arr[j])
+
+        # Update the maximum water
+        max_water = max_water + (min(left, right) - arr[i])
+
+    return max_water
 
 
 def rain(walls):
@@ -35,36 +36,5 @@ def rain(walls):
 
     Return: Integer indicating total amount of rainwater retained.
     """
-    if walls is None:
-        return 0
-    if len(walls) == 2 or len(walls) == 1:
-        return 0
-
-    # prev, pos_prev = save_position(walls, walls[0], 0)
-    final_water_retain = 0
-    for i in range(len(walls)):
-        if walls[i] == 0 and i == 0:
-            while (walls[i] == 0):
-                i += 1
-                if (i+1) == len(walls):
-                    return 0
-                prev, pos_prev = walls[i], i
-        if walls[0] != 0:
-            prev, pos_prev = walls[0], 0
-        if (save_position(walls, prev, pos_prev)) == (None, None):
-            return 0
-        last, pos_last = save_position(walls, prev, pos_prev)
-        if prev < last:
-            water_retain = prev * (abs(pos_prev - pos_last) - 1)
-        else:
-            water_retain = last * (abs(pos_prev - pos_last) - 1)
-        while (((pos_prev+1) - (pos_last)) != 0):
-            water_retain = water_retain - walls[pos_prev+1]
-            pos_prev += 1
-        final_water_retain += water_retain
-        water_retain = 0
-        if (pos_last+1) == len(walls):
-            break
-        prev, pos_prev = last, pos_last
-
-    return final_water_retain
+    water_retained = maxWater(walls, len(walls))
+    return water_retained
