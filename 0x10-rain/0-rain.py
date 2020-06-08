@@ -22,6 +22,8 @@ def save_position(walls, num, i):
         if walls[j] >= num:
             max = walls[j]
             break
+        if j+1 == len(walls):
+            return (None, None)
     return (max, j)
 
 
@@ -49,6 +51,8 @@ def rain(walls):
                 prev, pos_prev = walls[i], i
         if walls[0] != 0:
             prev, pos_prev = walls[0], 0
+        if (save_position(walls, prev, pos_prev)) == (None, None):
+            return 0
         last, pos_last = save_position(walls, prev, pos_prev)
         if prev < last:
             water_retain = prev * (abs(pos_prev - pos_last) - 1)
