@@ -57,8 +57,8 @@ void heap_sort(int *array, size_t size)
 	size_t i;
 
 	if (!array)
-	{
-	}
+		return;
+
 	for (i = size / 2 - 1; i > 0; i--)
 		heapify(array, size, i - 1, size);
 
