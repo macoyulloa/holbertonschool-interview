@@ -52,7 +52,8 @@ int binary_search(int *array, size_t l, size_t r, int value,
 
 		if (array[mid] == value)
 		{
-			return (mid);
+			if (mid == 0 || (array[mid - 1] < value))
+				return (mid);
 		}
 		if (array[mid] > value)
 			return (binary_search(array, l, mid - 1, value, l, mid));
@@ -72,7 +73,7 @@ int binary_search(int *array, size_t l, size_t r, int value,
  */
 int advanced_binary(int *array, size_t size, int value)
 {
-	if (!array)
+	if (array == NULL || size == 0)
 		return (-1);
 
 	return (binary_search(array, 0, size, value, 0, size));
