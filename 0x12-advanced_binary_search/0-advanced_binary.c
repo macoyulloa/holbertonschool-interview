@@ -4,18 +4,15 @@
  * print_array - Prints an array of integers
  *
  * @array: The array to be printed
- * @size: Number of elements in @array
  * @init: the start point to be printed
  * @end: end point to print
  */
-void print_array(const int *array, size_t init, size_t end, size_t size)
+void print_array(const int *array, size_t init, size_t end)
 {
 	size_t start;
 
 	start = init;
-
-	printf("%zu init, %zu end, %zu size\n", init, end, size);
-	if ((init == end) || (init == 0 && end == size - 1))
+	if (init == end)
 	{
 	}
 	else
@@ -39,29 +36,27 @@ void print_array(const int *array, size_t init, size_t end, size_t size)
  * @l: left size of the array to search in
  * @r: right size of the array to search in
  * @value: the value to search for
- * @size: size of the array
+ * @l_p:left range of the array to be printed
+ * @r_p: right range of the array to be printed
  * Return:  the index where value is located or -1 on failure
  */
-int binary_search(int *array, size_t l, size_t r, int value, size_t size)
+int binary_search(int *array, size_t l, size_t r, int value,
+		  size_t l_p, size_t r_p)
 {
 	int mid;
 
+	print_array(array, l_p, r_p);
 	if (r >= l)
 	{
 		mid = (l + (r - l) / 2);
 
 		if (array[mid] == value)
 		{
-			print_array(array, 0, mid, size);
 			return (mid);
 		}
 		if (array[mid] > value)
-		{
-			print_array(array, l, mid, size);
-			return (binary_search(array, l, mid - 1, value, size));
-		}
-		print_array(array, mid, r, size);
-		return (binary_search(array, mid + 1, r, value, size));
+			return (binary_search(array, l, mid - 1, value, l, mid));
+		return (binary_search(array, mid + 1, r, value, mid, r));
 	}
 	return (-1);
 }
@@ -80,6 +75,5 @@ int advanced_binary(int *array, size_t size, int value)
 	if (!array)
 		return (-1);
 
-	print_array(array, 0, size, size);
-	return (binary_search(array, 0, size, value, size));
+	return (binary_search(array, 0, size, value, 0, size));
 }
