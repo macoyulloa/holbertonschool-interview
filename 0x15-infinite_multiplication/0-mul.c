@@ -1,6 +1,4 @@
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
+#include "holberton.h"
 
 /**
  * error - error and exit 98.
