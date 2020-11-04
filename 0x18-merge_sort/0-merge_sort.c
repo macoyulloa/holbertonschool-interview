@@ -1,7 +1,7 @@
 #include "sort.h"
 
 /**
- * merge - merges l and r arrays into original array
+ * merge - merges left and right arrays
  * @array: pointer to array
  * @size: size of the array
  * @l: pointer to left array
@@ -36,17 +36,18 @@ void merge(int *array, int *l, int *r, size_t size)
 	printf("[Done]: ");
 	print_array(array, size);
 }
+
 /**
- * merge_sort - sorts an array of integers in ascending order using
+ * merge_sort - sorts an array using
  * the Merge sort algorithm
  * @array: pointer to array
  * @size: size of the array
  **/
 void merge_sort(int *array, size_t size)
 {
-	size_t mid = 0, i;
-	int left[1000];
-	int right[1000];
+	size_t mid = 0, i, j;
+	int left[10000];
+	int right[10000];
 
 	if (!array)
 		return;
@@ -59,8 +60,8 @@ void merge_sort(int *array, size_t size)
 	for (i = 0; i < mid; i++)
 		left[i] = array[i];
 
-	for (i = mid; i < size; i++)
-		right[i - mid] = array[i];
+	for (j = mid; j < size; j++)
+		right[j - mid] = array[j];
 
 	merge_sort(left, mid);
 	merge_sort(right, size - mid);
